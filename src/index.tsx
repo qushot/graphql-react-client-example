@@ -4,6 +4,35 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import {
+    ApolloClient,
+    InMemoryCache,
+    ApolloProvider,
+    useQuery,
+    gql
+} from '@apollo/client';
+
+const client = new ApolloClient({
+    uri: 'http://localhost:8080',
+    cache: new InMemoryCache()
+})
+
+client
+    .query({
+        query: gql`
+        query {
+            todos {
+                id,
+                text,
+                done
+            }
+        }
+        `
+    })
+    .then(result => console.log(result));
+
+// TODO: このへんまでやった https://www.apollographql.com/docs/react/get-started#2-initialize-apolloclient
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
